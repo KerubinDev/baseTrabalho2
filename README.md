@@ -126,7 +126,7 @@ A função `loop()` é a principal do programa e é executada continuamente. Ela
 3. **Operação**: Coloque os nibbles de entrada nos pinos 0-3 (primeiro nibble) e 4-7 (segundo nibble). Ative a soma configurando o pino 13 para HIGH. O resultado aparecerá nos pinos 8-12.
 
 ## Autor
-- **Nome do Estudante**: [Seu Nome]
+- **Estudante**: Kelvin Moraes (Kerubin)
 - **Professor**: Glauber Kiss de Souza
 - **Disciplina**: Análise e Orientação Técnica
 - **Instituição**: SENAC NH
