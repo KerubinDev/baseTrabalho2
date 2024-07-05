@@ -9,6 +9,10 @@ Este projeto consiste em um somador binário de 4 bits implementado com um Ardui
 - [Contribuindo](docs/CONTRIBUTING.md)
 - [Licença](LICENSE)
 
+## Simulador do Arduino
+
+- [UnoArdoSim](https://github.com/KerubinDev/baseTrabalho2/blob/main/UnoArduSimV2.9.2.zip)
+
 ## Autor
 - Estudante: Kelvin Moraes (Kerubin)
 - Professor: Glauber Kiss de Souza
