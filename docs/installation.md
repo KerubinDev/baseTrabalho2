@@ -5,7 +5,7 @@
 
 2. **Carregue o código:**
    - Abra a IDE do Arduino.
-   - Carregue o arquivo do projeto (`somador_binario.ino`).
+   - Carregue o arquivo do projeto(`base_trab_2.ino`).
    - Conecte seu UnoArdoSim ao computador via USB.
    - No Arduino IDE, selecione a placa correta e a porta serial correspondente.
    - Clique no botão de upload (seta para a direita) para compilar e carregar o código no UnoArdoSim.
