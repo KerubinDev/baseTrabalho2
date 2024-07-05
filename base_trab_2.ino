@@ -1,88 +1,58 @@
-//TÉCNICO EM DESENVOLVIMENTO DE SISTEMAS - SENAC NH
-//Programa base para TRABALHO 2
-//PROF.: Glauber Kiss de Souza
-//DISC.: Analizar Orient. Técnicas
+// TECHNICIAN IN SYSTEMS DEVELOPMENT - SENAC NH
+// Base program for WORK 2
+// PROF.: Glauber Kiss de Souza
+// DISC.: Analysis of Oriented Techniques
 
 // Variables
-int soma = 13;
+const int somaPin = 13;
 int carryBit = 0;
-int nib1a,nib1b,nib1c,nib1d = 0;
-int nib2a,nib2b,nib2c,nib2d = 0;
-int res1a,res1b,res1c,res1d = 0;
+int nib1[4] = {0, 0, 0, 0};
+int nib2[4] = {0, 0, 0, 0};
+int res[4] = {0, 0, 0, 0};
 
-void setup() //Function responsible for inputs and output
-{
-	pinMode(0, INPUT);
-	pinMode(1, INPUT);
-	pinMode(2, INPUT);
-	pinMode(3, INPUT);
-	pinMode(4, INPUT);
-	pinMode(5, INPUT);
-	pinMode(6, INPUT);
-	pinMode(7, INPUT);
-	pinMode(8, OUTPUT);
-	pinMode(9, OUTPUT);
-	pinMode(10, OUTPUT);
-	pinMode(11, OUTPUT);
-	pinMode(12, OUTPUT);
-	pinMode(13, INPUT);
+void setup() {
+  // Pin configuration for input and output
+  for (int i = 0; i <= 7; i++) {
+    pinMode(i, INPUT);
+  }
+  for (int i = 8; i <= 12; i++) {
+    pinMode(i, OUTPUT);
+  }
+  pinMode(somaPin, INPUT);
 }
 
-int somaBit(int b1a, int b2a, int cBit) //Function responsible for the sum of each "bit"
-{
-	int bitResult = 0;
-	int aux1, aux2 = 0;
-	if ((b1a ^ b2a) ^ cBit)
-	{
-		bitResult = 1;
-	}
-	else
-	{
-		bitResult = 0;
-	}
-	return bitResult;
+// Function responsible for bitwise addition
+int somaBit(int b1, int b2, int carry) {
+  return (b1 ^ b2) ^ carry;
 }
 
-int somaCarryBit(int b1a, int b2a, int cBit) //Function responsible for the sum of each "Carry Bit"
-{
-	int aux1, aux2 = 0;
-	if ((b1a && b2a)||(b1a && cBit)||(b2a && cBit))
-	{
-		cBit = 1;
-	}
-	else
-	{
-		cBit = 0;
-	}
-	return cBit;
+// Function responsible for the carry bit addition
+int somaCarryBit(int b1, int b2, int carry) {
+  return (b1 && b2) || (b1 && carry) || (b2 && carry);
 }
 
-void loop() //Main loop, main style in c++
-{
-	soma = digitalRead(13);
-	nib1a = digitalRead(0);
-	nib1b = digitalRead(1);
-	nib1c = digitalRead(2);
-	nib1d = digitalRead(3);
-	nib2a = digitalRead(4);
-	nib2b = digitalRead(5);
-	nib2c = digitalRead(6);
-	nib2d = digitalRead(7);
-	if (soma == 1) //Function responsible for bit sum with carry
-	{
-		carryBit = 0; 
-		res1a = somaBit(nib1a,nib2a,carryBit);
-		carryBit = somaCarryBit(nib1a,nib2a,carryBit);
-		res1b = somaBit(nib1b,nib2b,carryBit);
-		carryBit = somaCarryBit(nib1b,nib2b,carryBit);
-		res1c = somaBit(nib1c,nib2c,carryBit);
-		carryBit = somaCarryBit(nib1c,nib2c,carryBit);
-		res1d = somaBit(nib1d,nib2d,carryBit);
-		carryBit = somaCarryBit(nib1d,nib2d,carryBit);
-	}
-	digitalWrite(8,res1a);
-	digitalWrite(9,res1b);
-	digitalWrite(10,res1c);
-	digitalWrite(11,res1d);
-	digitalWrite(12,carryBit);
+void loop() {
+  // Read the state of the sum pin
+  int soma = digitalRead(somaPin);
+  
+  // Read the bits from the input nibbles
+  for (int i = 0; i < 4; i++) {
+    nib1[i] = digitalRead(i);
+    nib2[i] = digitalRead(i + 4);
+  }
+
+  if (soma == HIGH) {
+    // Perform bitwise addition with carry
+    carryBit = 0;
+    for (int i = 0; i < 4; i++) {
+      res[i] = somaBit(nib1[i], nib2[i], carryBit);
+      carryBit = somaCarryBit(nib1[i], nib2[i], carryBit);
+    }
+  }
+
+  // Write the results to the output pins
+  for (int i = 0; i < 4; i++) {
+    digitalWrite(8 + i, res[i]);
+  }
+  digitalWrite(12, carryBit);
 }
